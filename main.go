@@ -1,11 +1,10 @@
 package main
 
 import (
+	"braggedtooth/pkg"
 	"html/template"
 	"log"
 	"net/http"
-
-	"example.com/greet"
 )
 
 func main() {
@@ -17,7 +16,7 @@ func main() {
 		}
 
 		name := r.FormValue("name")
-		message, err := greet.Hello(name)
+		message, err := pkg.Greet(name)
 
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -40,18 +39,7 @@ func main() {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return
 		}
-		/* 		names := []string{"Gladys", "Samantha", "Darrin"}
-		   		messages, err := greet.Hello(names[len(names)-1])
-		   		if err != nil {
-		   			log.Fatal(err)
-		   		}
 
-		   		jsonBytes, err := json.Marshal(messages)
-		   		if err != nil {
-		   			return
-		   		}
-
-		   		fmt.Fprint(w, string(jsonBytes)) */
 	})
 
 	err := http.ListenAndServe(":8080", nil)

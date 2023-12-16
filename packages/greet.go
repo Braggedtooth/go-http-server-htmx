@@ -1,4 +1,4 @@
-package greet
+package pkg
 
 import (
 	"errors"
@@ -8,7 +8,7 @@ import (
 	"net/http"
 )
 
-func Hello(name string) (string, error) {
+func Greet(name string) (string, error) {
 	// If no name was given, return an error with a message.
 	if name == "" {
 		return "", errors.New("empty name")
@@ -16,36 +16,6 @@ func Hello(name string) (string, error) {
 
 	message := fmt.Sprintf(randomFormat(), name)
 	return message, nil
-}
-
-// Hellos returns a map that associates each of the named people
-// with a greeting message.
-/* func Hellos(names []string) (map[string]string, error) {
-	messages := make(map[string]string)
-
-	for _, name := range names {
-		message, err := Hello(name)
-		if err != nil {
-			return nil, err
-		}
-		messages[name] = message
-	}
-
-	return messages, nil
-} */
-
-func Hellos(names []string) ([]map[string]string, error) {
-	messages := make([]map[string]string, len(names))
-
-	for i, name := range names {
-		message, err := Hello(name)
-		if err != nil {
-			return nil, err
-		}
-		messages[i] = map[string]string{name: message}
-	}
-
-	return messages, nil
 }
 
 func randomFormat() string {
